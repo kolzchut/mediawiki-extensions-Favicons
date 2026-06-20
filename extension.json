@@ -1,0 +1,54 @@
+{
+	"name": "Favicons",
+	"author": [
+		"Dror S."
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:Favicons",
+	"descriptionmsg": "favicons-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "other",
+	"requires": {
+		"MediaWiki": ">= 1.43.0"
+	},
+	"config": {
+		"Favicons": {
+			"description": "Configurable favicon and Apple touch icon <link> tags. Two sections: 'icons' (rel=icon) and 'apple-touch' (rel=apple-touch-icon).",
+			"value": {
+				"icons": {
+					"ico": {
+						"href": "/favicon.ico",
+						"sizes": "16x16 24x24 32x32 48x48"
+					},
+					"png-192": {
+						"href": "/favicon.png",
+						"sizes": "192x192"
+					},
+					"svg": {
+						"href": "/favicon.svg",
+						"sizes": "any"
+					}
+				},
+				"apple-touch": {
+					"default": "/apple-touch-icon.png"
+				}
+			}
+		}
+	},
+	"MessagesDirs": {
+		"Favicons": [
+			"i18n"
+		]
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\Favicons\\": "includes/"
+	},
+	"Hooks": {
+		"OutputPageAfterGetHeadLinksArray": "main"
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\Favicons\\Hooks"
+		}
+	},
+	"manifest_version": 2
+}
