@@ -12,7 +12,7 @@
 	},
 	"config": {
 		"Favicons": {
-			"description": "Configurable favicon and Apple touch icon <link> tags. Two sections: 'icons' (rel=icon) and 'apple-touch' (rel=apple-touch-icon).",
+			"description": "Configurable favicon and Apple touch icon <link> tags. Sections: 'icons' (rel=icon), 'apple-touch' (rel=apple-touch-icon) and the opt-in 'web-manifest' (served at Special:WebAppManifest and linked as rel=manifest). 'web-manifest' has no default on purpose: leaving it out keeps the manifest off.",
 			"value": {
 				"icons": {
 					"ico": {
@@ -39,15 +39,29 @@
 			"i18n"
 		]
 	},
+	"ExtensionMessagesFiles": {
+		"FaviconsAlias": "Favicons.alias.php"
+	},
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\Favicons\\": "includes/"
+	},
+	"SpecialPages": {
+		"WebAppManifest": {
+			"class": "MediaWiki\\Extension\\Favicons\\SpecialWebAppManifest",
+			"services": [
+				"ContentLanguage"
+			]
+		}
 	},
 	"Hooks": {
 		"OutputPageAfterGetHeadLinksArray": "main"
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "MediaWiki\\Extension\\Favicons\\Hooks"
+			"class": "MediaWiki\\Extension\\Favicons\\Hooks",
+			"services": [
+				"TitleFactory"
+			]
 		}
 	},
 	"manifest_version": 2

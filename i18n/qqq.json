@@ -2,5 +2,6 @@
 	"@metadata": {
 		"authors": []
 	},
-	"favicons-desc": "{{desc|name=Favicons|url=https://www.mediawiki.org/wiki/Extension:Favicons}}"
+	"favicons-desc": "{{desc|name=Favicons|url=https://www.mediawiki.org/wiki/Extension:Favicons}}",
+	"webappmanifest": "{{doc-special|WebAppManifest|unlisted=1}}\nServes the site's web app manifest (JSON) when it is enabled in $wgFavicons."
 }
