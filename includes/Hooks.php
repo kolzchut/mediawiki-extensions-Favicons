@@ -4,15 +4,22 @@ namespace MediaWiki\Extension\Favicons;
 
 use MediaWiki\Hook\OutputPageAfterGetHeadLinksArrayHook;
 use MediaWiki\Html\Html;
+use MediaWiki\Title\TitleFactory;
 
 /**
  * Hook handlers for the Favicons extension.
  */
 class Hooks implements OutputPageAfterGetHeadLinksArrayHook {
 
+	public function __construct(
+		private readonly TitleFactory $titleFactory
+	) {
+	}
+
 	/**
 	 * Replace MediaWiki's default favicon/apple-touch <link> tags with a
-	 * configurable set driven by $wgFavicons.
+	 * configurable set driven by $wgFavicons, plus a manifest link when the
+	 * opt-in 'web-manifest' section is configured.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageAfterGetHeadLinksArray
 	 * @param string[] &$tags <head> links generated so far, keyed by name
@@ -58,6 +65,14 @@ class Hooks implements OutputPageAfterGetHeadLinksArrayHook {
 			}
 
 			$tags["apple-touch-icon-$key"] = Html::element( 'link', $attrs );
+		}
+
+		// Web app manifest (rel=manifest), only when the 'web-manifest' section is set.
+		if ( SpecialWebAppManifest::getManifestConfig( $favicons ) !== null ) {
+			$tags['web-manifest'] = Html::element( 'link', [
+				'rel' => 'manifest',
+				'href' => $this->titleFactory->makeTitle( NS_SPECIAL, 'WebAppManifest' )->getLocalURL(),
+			] );
 		}
 	}
 }

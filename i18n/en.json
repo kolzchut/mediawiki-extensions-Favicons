@@ -4,5 +4,6 @@
 			"Dror S."
 		]
 	},
-	"favicons-desc": "Provides configurable favicon and Apple touch icon support"
+	"favicons-desc": "Provides configurable favicon and Apple touch icon support",
+	"webappmanifest": "Web app manifest"
 }
